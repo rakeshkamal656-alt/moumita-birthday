@@ -1,0 +1,999 @@
+```css
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color: #541d38;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #ffe7f1,
+            transparent 40%
+        ),
+        linear-gradient(
+            135deg,
+            #ff7eb3,
+            #ff758c
+        );
+
+    overflow-x: hidden;
+}
+
+
+/* ========================= */
+/* FLOATING HEARTS */
+/* ========================= */
+
+.floating-hearts {
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+
+    overflow: hidden;
+
+    z-index: 0;
+}
+
+.floating-hearts span {
+    position: absolute;
+
+    bottom: -50px;
+
+    font-size: 25px;
+
+    opacity: .45;
+
+    animation:
+        floatUp
+        linear
+        infinite;
+}
+
+.floating-hearts span:nth-child(1) {
+    left: 8%;
+    animation-duration: 8s;
+}
+
+.floating-hearts span:nth-child(2) {
+    left: 20%;
+    animation-duration: 11s;
+}
+
+.floating-hearts span:nth-child(3) {
+    left: 35%;
+    animation-duration: 9s;
+}
+
+.floating-hearts span:nth-child(4) {
+    left: 50%;
+    animation-duration: 12s;
+}
+
+.floating-hearts span:nth-child(5) {
+    left: 65%;
+    animation-duration: 10s;
+}
+
+.floating-hearts span:nth-child(6) {
+    left: 78%;
+    animation-duration: 8s;
+}
+
+.floating-hearts span:nth-child(7) {
+    left: 88%;
+    animation-duration: 13s;
+}
+
+.floating-hearts span:nth-child(8) {
+    left: 45%;
+    animation-duration: 9s;
+}
+
+
+/* ========================= */
+/* SCREEN */
+/* ========================= */
+
+.screen {
+
+    min-height: 100vh;
+
+    padding: 25px;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    position: relative;
+
+    z-index: 1;
+}
+
+.screen.active {
+
+    display: flex;
+
+    animation:
+        screenIn
+        .65s
+        ease;
+}
+
+
+/* ========================= */
+/* CARD */
+/* ========================= */
+
+.card {
+
+    width: min(
+        520px,
+        94vw
+    );
+
+    padding: 38px 25px;
+
+    text-align: center;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .94
+        );
+
+    border-radius: 30px;
+
+    box-shadow:
+        0 25px 70px
+        rgba(
+            80,
+            10,
+            40,
+            .25
+        );
+
+    backdrop-filter:
+        blur(15px);
+}
+
+.card h1 {
+
+    font-size: 38px;
+
+    margin-bottom: 15px;
+
+    color: #ff4081;
+}
+
+.card h2 {
+
+    font-size: 28px;
+
+    margin-bottom: 18px;
+}
+
+.card p {
+
+    font-size: 17px;
+
+    line-height: 1.6;
+
+    margin-bottom: 15px;
+}
+
+.intro {
+
+    font-size: 19px !important;
+}
+
+
+/* ========================= */
+/* CAKE */
+/* ========================= */
+
+.cake {
+
+    font-size: 75px;
+
+    margin-bottom: 10px;
+
+    animation:
+        bounce
+        1.5s
+        infinite;
+}
+
+
+/* ========================= */
+/* BUTTON */
+/* ========================= */
+
+button {
+
+    border: none;
+
+    padding:
+        14px
+        22px;
+
+    margin: 8px;
+
+    border-radius: 30px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff4f91,
+            #ff76aa
+        );
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 20px
+        rgba(
+            255,
+            65,
+            130,
+            .3
+        );
+
+    transition:
+        transform
+        .25s,
+        box-shadow
+        .25s;
+}
+
+button:hover {
+
+    transform:
+        translateY(-3px)
+        scale(1.04);
+
+    box-shadow:
+        0 12px 25px
+        rgba(
+            255,
+            65,
+            130,
+            .4
+        );
+}
+
+button:active {
+
+    transform:
+        scale(.94);
+}
+
+
+/* ========================= */
+/* LEVEL */
+/* ========================= */
+
+.level {
+
+    display: inline-block;
+
+    background: #ffe1ed;
+
+    color: #ff4081;
+
+    padding:
+        7px
+        15px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    margin-bottom: 15px;
+}
+
+
+/* ========================= */
+/* HEART GAME */
+/* ========================= */
+
+.heart-area {
+
+    height: 310px;
+
+    position: relative;
+
+    margin-top: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff2f8,
+            #ffe7f2
+        );
+
+    border-radius: 25px;
+
+    overflow: hidden;
+}
+
+.hidden-heart {
+
+    position: absolute;
+
+    left: 67%;
+
+    top: 38%;
+
+    padding: 3px;
+
+    margin: 0;
+
+    background: transparent;
+
+    box-shadow: none;
+
+    font-size: 24px;
+
+    animation:
+        heartbeat
+        1.2s
+        infinite;
+}
+
+.fake-heart {
+
+    position: absolute;
+
+    font-size: 40px;
+
+    color: #ffb7d0;
+
+    pointer-events: none;
+}
+
+.h1 {
+    left: 10%;
+    top: 20%;
+}
+
+.h2 {
+    left: 40%;
+    top: 70%;
+}
+
+.h3 {
+    left: 75%;
+    top: 75%;
+}
+
+.h4 {
+    left: 20%;
+    top: 70%;
+}
+
+.h5 {
+    left: 80%;
+    top: 15%;
+}
+
+
+/* ========================= */
+/* MEMORY */
+/* ========================= */
+
+.memory-emoji {
+
+    font-size: 48px;
+
+    padding: 25px;
+
+    margin:
+        20px
+        0;
+
+    background: #fff0f6;
+
+    border-radius: 20px;
+
+    animation:
+        pulse
+        1.2s
+        infinite;
+}
+
+.question {
+
+    margin-top: 20px;
+}
+
+.hidden {
+
+    display: none !important;
+}
+
+
+/* ========================= */
+/* QUESTION */
+/* ========================= */
+
+.big-question {
+
+    background: #fff0f6;
+
+    border-radius: 20px;
+
+    padding: 22px;
+
+    font-size: 18px !important;
+}
+
+
+/* ========================= */
+/* SECRET CODE */
+/* ========================= */
+
+.code {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    margin:
+        25px
+        0;
+}
+
+.code span {
+
+    width: 43px;
+
+    height: 52px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff4f91,
+            #ff78aa
+        );
+
+    color: white;
+
+    border-radius: 12px;
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+    box-shadow:
+        0 8px 18px
+        rgba(
+            255,
+            70,
+            130,
+            .25
+        );
+
+    animation:
+        codePop
+        .5s
+        ease
+        backwards;
+}
+
+.code span:nth-child(1) {
+    animation-delay: .1s;
+}
+
+.code span:nth-child(2) {
+    animation-delay: .2s;
+}
+
+.code span:nth-child(3) {
+    animation-delay: .3s;
+}
+
+.code span:nth-child(4) {
+    animation-delay: .4s;
+}
+
+.code span:nth-child(5) {
+    animation-delay: .5s;
+}
+
+.code span:nth-child(6) {
+    animation-delay: .6s;
+}
+
+.code span:nth-child(7) {
+    animation-delay: .7s;
+}
+
+
+input {
+
+    width: 82%;
+
+    padding: 15px;
+
+    border:
+        2px solid
+        #ffc0d9;
+
+    border-radius: 25px;
+
+    text-align: center;
+
+    outline: none;
+
+    font-size: 17px;
+
+    margin: 10px;
+
+    color: #541d38;
+}
+
+input:focus {
+
+    border-color: #ff4f91;
+
+    box-shadow:
+        0 0 15px
+        rgba(
+            255,
+            79,
+            145,
+            .2
+        );
+}
+
+#codeMessage {
+
+    font-weight: bold;
+
+    color: #ff4081;
+
+    min-height: 25px;
+}
+
+
+/* ========================= */
+/* GIFT */
+/* ========================= */
+
+.gift-card {
+
+    overflow: hidden;
+}
+
+.celebrate {
+
+    font-size: 28px;
+
+    margin-bottom: 10px;
+}
+
+.gift-box {
+
+    width: 190px;
+
+    height: 170px;
+
+    margin:
+        45px
+        auto
+        20px;
+
+    position: relative;
+
+    cursor: pointer;
+
+    animation:
+        giftFloat
+        2s
+        infinite;
+
+    transition:
+        transform
+        .4s;
+}
+
+.gift-body {
+
+    position: absolute;
+
+    width: 155px;
+
+    height: 115px;
+
+    left: 18px;
+
+    bottom: 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff4f91,
+            #ff287d
+        );
+
+    border-radius: 6px;
+}
+
+.gift-lid {
+
+    position: absolute;
+
+    width: 190px;
+
+    height: 38px;
+
+    top: 12px;
+
+    left: 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff287d,
+            #ff126d
+        );
+
+    border-radius: 8px;
+
+    z-index: 3;
+}
+
+.ribbon {
+
+    position: absolute;
+
+    background: #ffd34e;
+
+    z-index: 4;
+}
+
+.vertical {
+
+    width: 27px;
+
+    height: 150px;
+
+    left: 81px;
+
+    top: 12px;
+}
+
+.horizontal {
+
+    width: 190px;
+
+    height: 21px;
+
+    left: 0;
+
+    top: 70px;
+}
+
+.gift-hint {
+
+    font-weight: bold;
+
+    animation:
+        pulse
+        1s
+        infinite;
+}
+
+
+/* ========================= */
+/* VIDEO */
+/* ========================= */
+
+.video-card {
+
+    width: min(
+        900px,
+        96vw
+    );
+
+    padding: 25px;
+
+    text-align: center;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .95
+        );
+
+    border-radius: 30px;
+
+    box-shadow:
+        0 25px 70px
+        rgba(
+            80,
+            10,
+            40,
+            .3
+        );
+}
+
+.video-card h1 {
+
+    font-size: 40px;
+
+    color: #ff4081;
+
+    margin-bottom: 10px;
+}
+
+.drive-video {
+
+    width: 100%;
+
+    margin:
+        25px
+        0;
+
+    aspect-ratio: 16 / 9;
+
+    background: black;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+.drive-video iframe {
+
+    width: 100%;
+
+    height: 100%;
+
+    border: none;
+}
+
+.big-confetti {
+
+    font-size: 28px;
+
+    margin-bottom: 10px;
+
+    animation:
+        pulse
+        1.5s
+        infinite;
+}
+
+
+/* ========================= */
+/* ANIMATIONS */
+/* ========================= */
+
+@keyframes screenIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            scale(.92)
+            translateY(20px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            scale(1)
+            translateY(0);
+    }
+}
+
+@keyframes bounce {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+@keyframes heartbeat {
+
+    0%,100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.35);
+    }
+}
+
+@keyframes pulse {
+
+    0%,100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes giftFloat {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-13px);
+    }
+}
+
+@keyframes floatUp {
+
+    from {
+
+        transform:
+            translateY(0)
+            rotate(0deg);
+
+        opacity: 0;
+    }
+
+    15% {
+        opacity: .5;
+    }
+
+    to {
+
+        transform:
+            translateY(-110vh)
+            rotate(360deg);
+
+        opacity: 0;
+    }
+}
+
+@keyframes codePop {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            scale(0)
+            rotate(-15deg);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            scale(1)
+            rotate(0);
+    }
+}
+
+
+/* ========================= */
+/* MOBILE */
+/* ========================= */
+
+@media (max-width: 600px) {
+
+    .screen {
+
+        padding: 15px;
+    }
+
+    .card {
+
+        padding:
+            30px
+            17px;
+
+        border-radius: 25px;
+    }
+
+    .card h1 {
+
+        font-size: 30px;
+    }
+
+    .card h2 {
+
+        font-size: 24px;
+    }
+
+    .cake {
+
+        font-size: 60px;
+    }
+
+    .heart-area {
+
+        height: 280px;
+    }
+
+    .code {
+
+        gap: 4px;
+    }
+
+    .code span {
+
+        width: 36px;
+
+        height: 45px;
+
+        font-size: 18px;
+    }
+
+    .video-card h1 {
+
+        font-size: 28px;
+    }
+
+    .video-card {
+
+        padding:
+            18px
+            12px;
+    }
+
+    button {
+
+        font-size: 15px;
+
+        padding:
+            13px
+            18px;
+    }
+
+}
+```
