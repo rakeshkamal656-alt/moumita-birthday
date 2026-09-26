@@ -1,0 +1,446 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Happy Birthday Moumita ❤️</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Floating Hearts -->
+    <div class="floating-hearts">
+        <span>❤️</span>
+        <span>💕</span>
+        <span>💗</span>
+        <span>💖</span>
+        <span>✨</span>
+        <span>❤️</span>
+        <span>🌸</span>
+        <span>💕</span>
+    </div>
+
+
+    <!-- SOUND EFFECTS -->
+
+    <audio id="clickSound">
+        <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_8b6f7c3d1a.mp3">
+    </audio>
+
+    <audio id="successSound">
+        <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_2707c7b3b6.mp3">
+    </audio>
+
+    <audio id="wrongSound">
+        <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_4e6c6d1f3c.mp3">
+    </audio>
+
+
+    <!-- ========================= -->
+    <!-- WELCOME -->
+    <!-- ========================= -->
+
+    <section class="screen active" id="welcome">
+
+        <div class="card">
+
+            <div class="cake">🎂</div>
+
+            <h1>Hey Moumita ❤️</h1>
+
+            <p class="intro">
+                Someone has prepared a little surprise
+                especially for you... 👀
+            </p>
+
+            <p>
+                But first, you have to complete
+                a few cute missions. 😌💕
+            </p>
+
+            <button onclick="startGame()">
+                Start The Surprise ✨
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- LEVEL 1 -->
+    <!-- ========================= -->
+
+    <section class="screen" id="level1">
+
+        <div class="card">
+
+            <span class="level">
+                MISSION 01
+            </span>
+
+            <h2>
+                Find The Hidden Heart ❤️
+            </h2>
+
+            <p>
+                One special heart is hiding somewhere...
+            </p>
+
+            <p>
+                Find it, Birthday Girl! 👀
+            </p>
+
+            <div class="heart-area">
+
+                <button
+                    class="hidden-heart"
+                    onclick="heartFound()">
+                    ❤️
+                </button>
+
+                <span class="fake-heart h1">♡</span>
+                <span class="fake-heart h2">♡</span>
+                <span class="fake-heart h3">♡</span>
+                <span class="fake-heart h4">♡</span>
+                <span class="fake-heart h5">♡</span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- LEVEL 2 -->
+    <!-- ========================= -->
+
+    <section class="screen" id="level2">
+
+        <div class="card">
+
+            <span class="level">
+                MISSION 02
+            </span>
+
+            <h2>
+                Memory Challenge 🧠
+            </h2>
+
+            <div
+                id="memoryEmoji"
+                class="memory-emoji">
+
+                🌸 🎂 💕 🎁
+
+            </div>
+
+            <p id="memoryText">
+                Remember these emojis carefully... 👀
+            </p>
+
+            <button
+                id="memoryButton"
+                onclick="showMemoryQuestion()">
+
+                I Remember 😎
+
+            </button>
+
+
+            <div
+                id="memoryQuestion"
+                class="question hidden">
+
+                <h3>
+                    Which emoji was NOT shown? 🤔
+                </h3>
+
+                <button
+                    onclick="memoryAnswer('🎈')">
+
+                    🎈 Balloon
+
+                </button>
+
+                <button
+                    onclick="memoryAnswer('🎁')">
+
+                    🎁 Gift
+
+                </button>
+
+                <button
+                    onclick="memoryAnswer('🌸')">
+
+                    🌸 Flower
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- LEVEL 3 -->
+    <!-- ========================= -->
+
+    <section class="screen" id="level3">
+
+        <div class="card">
+
+            <span class="level">
+                MISSION 03
+            </span>
+
+            <h2>
+                Very Important Question 😂
+            </h2>
+
+            <p class="big-question">
+
+                If Moumita says...
+
+                <br><br>
+
+                <strong>
+                    "Ami rag korini." 😌
+                </strong>
+
+                <br><br>
+
+                What does it REALLY mean? 👀
+
+            </p>
+
+
+            <button onclick="funnyAnswer()">
+                A) Nothing 😇
+            </button>
+
+            <button onclick="funnyAnswer()">
+                B) Little angry 😶
+            </button>
+
+            <button onclick="funnyAnswer()">
+                C) VERY angry 💀
+            </button>
+
+            <button onclick="funnyAnswer()">
+                D) RUN! 🏃😂
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- LEVEL 4 -->
+    <!-- ========================= -->
+
+    <section class="screen" id="level4">
+
+        <div class="card">
+
+            <span class="level">
+                FINAL MISSION 💕
+            </span>
+
+            <h2>
+                One Last Question
+            </h2>
+
+            <p>
+                Who deserves this special birthday surprise?
+            </p>
+
+
+            <button onclick="finalAnswer()">
+                Moumita ❤️
+            </button>
+
+            <button onclick="finalAnswer()">
+                Someone else 😏
+            </button>
+
+            <button onclick="finalAnswer()">
+                Birthday Queen 👑
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- SECRET CODE -->
+    <!-- ========================= -->
+
+    <section class="screen" id="secret">
+
+        <div class="card">
+
+            <span class="level">
+                SECRET UNLOCK 🔐
+            </span>
+
+            <h2>
+                You Found The Secret!
+            </h2>
+
+            <p>
+                The letters are waiting for you... 👀
+            </p>
+
+
+            <div class="code">
+
+                <span>M</span>
+                <span>O</span>
+                <span>U</span>
+                <span>M</span>
+                <span>I</span>
+                <span>T</span>
+                <span>A</span>
+
+            </div>
+
+
+            <p>
+                Enter the secret code
+                to unlock your gift. 🎁
+            </p>
+
+
+            <input
+                type="text"
+                id="secretInput"
+                placeholder="Enter secret code..."
+                maxlength="7"
+                autocomplete="off"
+            >
+
+
+            <br>
+
+
+            <button onclick="checkCode()">
+                Unlock My Gift 🎁
+            </button>
+
+
+            <p id="codeMessage"></p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- GIFT -->
+    <!-- ========================= -->
+
+    <section class="screen" id="gift">
+
+        <div class="card gift-card">
+
+            <div class="celebrate">
+                🎉 ✨ ❤️ ✨ 🎉
+            </div>
+
+            <h1>
+                YOU DID IT! 🎉
+            </h1>
+
+            <p>
+                Moumita, your surprise
+                is finally unlocked. ❤️
+            </p>
+
+
+            <div
+                class="gift-box"
+                id="giftBox"
+                onclick="openGift()">
+
+                <div class="gift-lid"></div>
+
+                <div class="gift-body"></div>
+
+                <div class="ribbon vertical"></div>
+
+                <div class="ribbon horizontal"></div>
+
+            </div>
+
+
+            <p class="gift-hint">
+                Tap the gift 🎁
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- FINAL VIDEO -->
+    <!-- ========================= -->
+
+    <section class="screen" id="videoScreen">
+
+        <div class="video-card">
+
+            <div class="big-confetti">
+                🎉 🎊 ❤️ ✨ 🎂 ✨ ❤️ 🎊 🎉
+            </div>
+
+            <h1>
+                Happy Birthday Moumita ❤️
+            </h1>
+
+            <p>
+                This little surprise
+                is just for you... 💕
+            </p>
+
+
+            <div class="drive-video">
+
+                <iframe
+                    id="driveVideo"
+                    src=""
+                    allow="autoplay"
+                    allowfullscreen>
+                </iframe>
+
+            </div>
+
+
+            <h2>
+                Stay Happy. Stay Beautiful. ❤️
+            </h2>
+
+            <p>
+                Happy Birthday, Moumita! 🎂✨
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
+```
