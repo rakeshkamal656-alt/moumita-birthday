@@ -1,153 +1,95 @@
 ```javascript
-/* ================================= */
-/* GOOGLE DRIVE VIDEO */
-/* ================================= */
+const DRIVE_VIDEO_ID = "1c4y-jZe_V0VNQ4Es21mCz-o9e13K3OST";
 
-const DRIVE_VIDEO_ID =
-    "1c4y-jZe_V0VNQ4Es21mCz-o9e13K3OST";
-
-
-/* ================================= */
-/* SCREEN CONTROL */
-/* ================================= */
-
-const screens =
-    document.querySelectorAll(".screen");
-
+const screens = document.querySelectorAll(".screen");
 
 function showScreen(id) {
-
     screens.forEach(screen => {
-
         screen.classList.remove("active");
-
     });
 
-    const target =
-        document.getElementById(id);
+    const nextScreen = document.getElementById(id);
 
-    target.classList.add("active");
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
+    if (nextScreen) {
+        nextScreen.classList.add("active");
+        window.scrollTo(0, 0);
+    }
 }
 
-
-/* ================================= */
-/* SOUND */
-/* ================================= */
-
+// Simple built-in sound — no external audio file needed
 function playSound(type) {
-
     try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
 
-        let sound;
+        const ctx = new AudioContext();
+        const oscillator = ctx.createOscillator();
+        const gain = ctx.createGain();
 
-        if (type === "click") {
-
-            sound =
-                document.getElementById(
-                    "clickSound"
-                );
-
-        }
+        oscillator.connect(gain);
+        gain.connect(ctx.destination);
 
         if (type === "success") {
-
-            sound =
-                document.getElementById(
-                    "successSound"
-                );
-
+            oscillator.frequency.value = 700;
+        } else if (type === "wrong") {
+            oscillator.frequency.value = 180;
+        } else {
+            oscillator.frequency.value = 450;
         }
 
-        if (type === "wrong") {
+        oscillator.type = "sine";
+        gain.gain.setValueAtTime(0.12, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(
+            0.001,
+            ctx.currentTime + 0.18
+        );
 
-            sound =
-                document.getElementById(
-                    "wrongSound"
-                );
-
-        }
-
-        if (sound) {
-
-            sound.currentTime = 0;
-
-            sound.play().catch(() => {});
-
-        }
-
+        oscillator.start();
+        oscillator.stop(ctx.currentTime + 0.18);
     } catch (error) {
-
-        console.log(error);
-
+        console.log("Sound error:", error);
     }
 }
 
 
-/* ================================= */
-/* START */
-/* ================================= */
-
+// START
 function startGame() {
-
     playSound("click");
-
     showScreen("level1");
-
 }
 
 
-/* ================================= */
-/* HEART HUNT */
-/* ================================= */
-
+// MISSION 1
 function heartFound() {
-
     playSound("success");
-
     createConfetti();
 
-    alert(
-        "Yessss! You found the special heart! ❤️"
-    );
+    alert("Yessss! You found the special heart! ❤️");
 
-    setTimeout(() => {
-
+    setTimeout(function () {
         showScreen("level2");
-
     }, 500);
 }
 
 
-/* ================================= */
-/* MEMORY */
-/* ================================= */
-
+// MISSION 2
 function showMemoryQuestion() {
-
     playSound("click");
 
-    document.getElementById(
-        "memoryEmoji"
-    ).style.display = "none";
+    const emoji = document.getElementById("memoryEmoji");
+    const text = document.getElementById("memoryText");
+    const button = document.getElementById("memoryButton");
+    const question = document.getElementById("memoryQuestion");
 
-    document.getElementById(
-        "memoryText"
-    ).innerText =
-        "Okayyy... let's test your memory! 😏";
+    if (emoji) emoji.style.display = "none";
 
-    document.getElementById(
-        "memoryButton"
-    ).style.display = "none";
+    if (text) {
+        text.innerText = "Okayyy... let's test your memory! 😏";
+    }
 
-    document.getElementById(
-        "memoryQuestion"
-    ).classList.remove("hidden");
+    if (button) button.style.display = "none";
 
+    if (question) question.classList.remove("hidden");
 }
 
 
@@ -156,100 +98,64 @@ function memoryAnswer(answer) {
     if (answer === "🎈") {
 
         playSound("success");
-
         createConfetti();
 
-        alert(
-            "Correct! Your memory is actually good! 😂🧠"
-        );
+        alert("Correct! Your memory is actually good! 😂🧠");
 
-        setTimeout(() => {
-
+        setTimeout(function () {
             showScreen("level3");
-
         }, 500);
 
     } else {
 
         playSound("wrong");
 
-        alert(
-            "Oops! Try again, Birthday Girl! 😂"
-        );
-
+        alert("Oops! Try again, Birthday Girl! 😂");
     }
-
 }
 
 
-/* ================================= */
-/* FUNNY MCQ */
-/* ================================= */
-
+// MISSION 3
 function funnyAnswer() {
 
     playSound("success");
 
-    alert(
-        "HAHAHA! 😂 We both know the answer!"
-    );
+    alert("HAHAHA! 😂 We both know the answer!");
 
-    setTimeout(() => {
-
+    setTimeout(function () {
         showScreen("level4");
-
     }, 500);
-
 }
 
 
-/* ================================= */
-/* FINAL QUESTION */
-/* ================================= */
-
+// FINAL QUESTION
 function finalAnswer() {
 
     playSound("success");
 
     showScreen("secret");
-
 }
 
 
-/* ================================= */
-/* SECRET CODE */
-/* ================================= */
-
+// SECRET CODE
 function checkCode() {
 
-    const input =
-        document.getElementById(
-            "secretInput"
-        )
-        .value
-        .trim()
-        .toUpperCase();
+    const input = document.getElementById("secretInput");
+    const message = document.getElementById("codeMessage");
 
+    if (!input || !message) return;
 
-    const message =
-        document.getElementById(
-            "codeMessage"
-        );
+    const code = input.value.trim().toUpperCase();
 
-
-    if (input === "MOUMITA") {
+    if (code === "MOUMITA") {
 
         playSound("success");
-
-        message.innerText =
-            "🔓 Correct! Surprise unlocked! ❤️";
-
         createConfetti();
 
-        setTimeout(() => {
+        message.innerText = "🔓 Correct! Surprise unlocked! ❤️";
 
+        setTimeout(function () {
             showScreen("gift");
-
         }, 1200);
 
     } else {
@@ -258,65 +164,42 @@ function checkCode() {
 
         message.innerText =
             "❌ Wrong code! Hint: It's her name 😜";
-
     }
-
 }
 
 
-/* ================================= */
-/* OPEN GIFT */
-/* ================================= */
-
+// GIFT BOX
 function openGift() {
 
     playSound("success");
-
-    const gift =
-        document.getElementById(
-            "giftBox"
-        );
-
-
-    gift.style.animation = "none";
-
-    gift.style.transform =
-        "scale(1.25) rotate(5deg)";
-
-
     createConfetti();
 
+    const gift = document.getElementById("giftBox");
 
-    setTimeout(() => {
+    if (gift) {
+        gift.style.animation = "none";
+        gift.style.transform = "scale(1.25) rotate(5deg)";
+    }
+
+    setTimeout(function () {
 
         showScreen("videoScreen");
 
-
-        /*
-         * Google Drive preview player
-         */
-
         const videoFrame =
-            document.getElementById(
-                "driveVideo"
-            );
+            document.getElementById("driveVideo");
 
-
-        videoFrame.src =
-            "https://drive.google.com/file/d/"
-            + DRIVE_VIDEO_ID
-            + "/preview";
-
+        if (videoFrame) {
+            videoFrame.src =
+                "https://drive.google.com/file/d/" +
+                DRIVE_VIDEO_ID +
+                "/preview";
+        }
 
     }, 1000);
-
 }
 
 
-/* ================================= */
-/* CONFETTI */
-/* ================================= */
-
+// CONFETTI
 function createConfetti() {
 
     const emojis = [
@@ -330,136 +213,65 @@ function createConfetti() {
         "💖"
     ];
 
+    for (let i = 0; i < 45; i++) {
 
-    for (
-        let i = 0;
-        i < 45;
-        i++
-    ) {
-
-        const confetti =
-            document.createElement("div");
-
+        const confetti = document.createElement("div");
 
         confetti.innerText =
-            emojis[
-                Math.floor(
-                    Math.random()
-                    * emojis.length
-                )
-            ];
+            emojis[Math.floor(Math.random() * emojis.length)];
 
-
-        confetti.style.position =
-            "fixed";
-
-
+        confetti.style.position = "fixed";
         confetti.style.left =
-            Math.random()
-            * 100
-            + "vw";
+            Math.random() * 100 + "vw";
 
-
-        confetti.style.top =
-            "-40px";
-
+        confetti.style.top = "-40px";
 
         confetti.style.fontSize =
-            (
-                15
-                +
-                Math.random()
-                * 25
-            )
-            + "px";
+            15 + Math.random() * 25 + "px";
 
-
-        confetti.style.zIndex =
-            "99999";
-
-
-        confetti.style.pointerEvents =
-            "none";
-
+        confetti.style.zIndex = "99999";
+        confetti.style.pointerEvents = "none";
 
         confetti.style.transition =
             "transform 3s linear, opacity 3s";
 
+        document.body.appendChild(confetti);
 
-        document.body.appendChild(
-            confetti
-        );
-
-
-        setTimeout(() => {
+        setTimeout(function () {
 
             confetti.style.transform =
-                "translateY("
-                +
-                (
-                    window.innerHeight
-                    + 150
-                )
-                +
-                "px) rotate("
-                +
-                (
-                    Math.random()
-                    * 720
-                )
-                +
+                "translateY(" +
+                (window.innerHeight + 150) +
+                "px) rotate(" +
+                Math.random() * 720 +
                 "deg)";
 
-
-            confetti.style.opacity =
-                "0";
-
+            confetti.style.opacity = "0";
 
         }, 50);
 
-
-        setTimeout(() => {
-
+        setTimeout(function () {
             confetti.remove();
-
         }, 3200);
-
     }
-
 }
 
 
-/* ================================= */
-/* ENTER KEY FOR SECRET CODE */
-/* ================================= */
+// ENTER KEY FOR SECRET CODE
+document.addEventListener("DOMContentLoaded", function () {
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+    const input =
+        document.getElementById("secretInput");
 
-        const input =
-            document.getElementById(
-                "secretInput"
-            );
+    if (input) {
 
+        input.addEventListener("keydown", function (event) {
 
-        input.addEventListener(
-            "keydown",
-            event => {
-
-                if (
-                    event.key
-                    ===
-                    "Enter"
-                ) {
-
-                    checkCode();
-
-                }
-
+            if (event.key === "Enter") {
+                checkCode();
             }
-        );
 
+        });
     }
-);
+});
 ```
